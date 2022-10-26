@@ -1,0 +1,66 @@
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/R%C3%B6e_g%C3%A5rd_caf%C3%A9_2.jpg/1920px-R%C3%B6e_g%C3%A5rd_caf%C3%A9_2.jpg')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="site-heading">
+            <h1>Cafecito</h1>
+            <span class="subheading">A collection of random cafes.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {% for cafe in all_cafes %}
+        <div class="post-preview">
+          <a href="">
+            <h2 class="post-title">
+              {{cafe.name}}
+            </h2>
+            <h3 class="post-subtitle">
+              {{cafe.location}}
+            </h3>
+          </a>
+          <p class="post-meta">Details (Sits {{ cafe.seats }} people):
+            <ul class="list-group">
+                {% if cafe.has_toilet == 1 %}
+                <li class="list-group-item active">Bathroom ✔</li>
+                {% else %}
+                <li class="list-group-item">Bathroom ❌</li>
+                {% endif %}
+                {% if cafe.has_wifi == 1 %}
+                <li class="list-group-item active">Wifi Availability ✔</li>
+                {% else %}
+                <li class="list-group-item">Wifi Availability ❌</li>
+                {% endif %}
+                {% if cafe.has_sockets == 1 %}
+                <li class="list-group-item active">Outlet Availability ✔</li>
+                {% else %}
+                <li class="list-group-item">Outlet Availability ❌</li>
+                {% endif %}
+                {% if cafe.can_take_calls == 1 %}
+                <li class="list-group-item active">Call-in Availability ✔</li>
+                {% else %}
+                <li class="list-group-item">Call-in Availability  ❌</li>
+                {% endif %}
+                <li class="list-group-item">Price: {{ cafe.coffee_price }}</li>
+            </ul>
+            <a class="post-meta" href="{{url_for('delete', cafe_id=cafe.id) }}">Delete this Cafe</a>
+          </p>
+        </div>
+        <hr>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+  <hr>
+
+{% include "footer.html" %}
